@@ -1,0 +1,150 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" class="no-js" lang="zxx">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>Facturas</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- CSS only -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css" integrity="sha384-VCmXjywReHh4PwowAiWNagnWcLhlEJLA5buUprzK8rxFgeH0kww/aWY76TfkUoSX" crossorigin="anonymous">
+	
+</head>
+
+<body>
+
+    <header>
+        <div class="header-area ">
+            <div id="sticky-header" class="main-header-area">
+                <div class="container-fluid">
+                    <div class="row align-items-center">
+                        <div class="col-xl-3 col-lg-3">
+                            <div class="logo">
+                                <a href="/">
+                                    <img src="img/logo.png" alt="">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-xl-9 col-lg-9">
+                            <div class="main-menu">
+                                <nav>
+                                    <ul id="navigation">
+                                        <li><a href="#">Clientes<i class="ti-angle-down"></i></a>
+                                            <ul class="submenu">
+                                                <li><a th:href="@{/listarClientes}">lista de Clientes</a></li>
+                                                <li><a th:href="@{/newClientes}">agregar Clientes</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="#">Productos<i class="ti-angle-down"></i></a>
+                                            <ul class="submenu">
+                                                <li><a th:href="@{/listarProductos}">lista de Productos</a></li>
+                                                <li><a th:href="@{/newProductos}">agregar Producto</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="#">Presupuestos<i class="ti-angle-down"></i></a>
+                                            <ul class="submenu">
+                                                <li><a th:href="@{/listarPresupuestos}">lista de Presupuestos</a></li>
+                                                <li><a th:href="@{/newPresupuestos}">agregar Presupuestos</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="#">Facturas<i class="ti-angle-down"></i></a>
+                                            <ul class="submenu">
+                                                <li><a th:href="@{/listarFacturas}">lista de Facturas</a></li>
+                                                <li><a th:href="@{/newFacturas}">agregar Facturas</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="#">Proveedores<i class="ti-angle-down"></i></a>
+                                            <ul class="submenu">
+                                                <li><a th:href="@{/listarProveedores}">lista de Proveedores</a></li>
+                                                <li><a th:href="@{/newProveedores}">agregar Proveedor</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="#">Compra de Proveedores<i class="ti-angle-down"></i></a>
+                                            <ul class="submenu">
+                                                <li><a th:href="@{/listarCompraProveedor}">lista de Compras</a></li>
+                                                <li><a th:href="@{/newCompraProveedor}">agregar Compra</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="mobile_menu d-block d-lg-none"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- header-end -->
+	
+    <!-- bradcam_area_start  -->
+    <div class="bradcam_area breadcam_bg overlay d-flex align-items-center justify-content-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="bradcam_text text-center">
+                        <h3>Facturas</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- bradcam_area_end  -->
+
+	<!-- Start Align Area -->
+	<div class="whole-wrap">
+					
+					
+		<div class="container box_1170">
+			<br />
+			<a th:href="@{/newFacturas}" class="boxed-btn4">Nuevo</a>
+			
+			<br /><br />
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th scope="col" >Id</th>
+							<th scope="col">Cliente</th>
+							<th scope="col">Fecha</th>
+							<th scope="col">Pagada</th>
+							<th scope="col">Deuda</th>
+							<th scope="col">Total</th>
+							<th scope="col">Iva</th>
+							<th scope="col">Total con Iva</th>
+							<th scope="col" colspan="2">Acciones</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="fac:${factura}">
+							<td scope="col" th:text="${fac.id}"></td>
+							<td scope="col" th:each="cliente:${fac.idCliente}" th:text="${cliente.Nombre}"></td>
+							<td scope="col" th:text="${fac.fecha}"></td>
+							<td scope="col" th:text="'S/'+${fac.pagada}"></td>
+							<td scope="col" th:text="'S/'+${fac.deuda}"></td>
+							<td scope="col" th:text="'S/'+${fac.total}"></td>
+							<td scope="col" th:text="${fac.iva}+' %'"></td>
+							<td scope="col" th:text="'S/'+${fac.TotalconIva}"></td>
+							<td scope="col">
+								<a th:href="@{/editarFacturas/}+${fac.id}" class="genric-btn info">Editar</a>								
+							</td>
+							<td scope="col">
+								<a th:onclick="eliminarFacturas([[${fac.id}]])" class="genric-btn danger">Eliminar</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<a th:href="@{/rest_factura}" class="genric-btn primary circle">Rest Facturas</a>
+				<br /><br />
+		</div>
+	</div>
+	<!-- End Align Area -->
+	<!-- JS, Popper.js, and jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/js/bootstrap.min.js" integrity="sha384-XEerZL0cuoUbHE4nZReLT7nx9gQrQreJekYhJD9WNWhH8nEW+0c5qq7aIo2Wl30J" crossorigin="anonymous"></script>
+    
+</body>
+</html>
